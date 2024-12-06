@@ -1,3 +1,19 @@
-.idea
-.vscode
+# Ignore Visual Studio Code settings
+.vscode/
+.vscode/*
+
+# Ignore JetBrains IDEs settings
+.idea/
+.idea/*
+*.iml
+
+# Ignore workspace files (optional, for multi-IDE environments)
+*.sublime-workspace
+*.code-workspace
+
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db
+
+# Assets
 da_checklist.pdf

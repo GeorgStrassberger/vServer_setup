@@ -14,7 +14,9 @@ This document will guide you through setting up SSH keys, configuring an Nginx w
 ---
 
 ## 🔑 1. Setup SSH Key Connection
+
 ### Generate an SSH Key
+
 To organize your SSH keys, create a separate folder for each project:
 
 ```bash
@@ -169,7 +171,9 @@ sudo systemctl restart sshd
 ```
 
 ---
-## 2. 🌐 Configure Nginx Web Server
+
+## 🌐 2. Configure Nginx Web Server
+
 ### Install Nginx
 
 Update your system and install Nginx:
@@ -184,10 +188,10 @@ Open your browser an navigate to "http://server_ipv4", you can see the nginx.def
 ![nginx_page](./img/nginx_page.png)
 
 ---
+
 ### Configure Nginx
 
-
-Remove the default folder & file: 
+Remove the default folder & file:
 
 ```bash
   sudo rm -r /var/www/html/
@@ -310,7 +314,9 @@ Open your browser an navigate to "http://server_ipv4:8010", now you can see your
 ![my_page](./img/my_page.png)
 
 ---
+
 ## 🖇️ 3. Connect to GitHub
+
 ### Install Git
 
 Install Git on your server
@@ -351,6 +357,9 @@ Now you have full access to your GitHub account and can clone repositories, work
 ```bash
   git clone git@github.com:YourName/vServer_setup.git
 ```
+
 ---
+
 ### 🎉 Done!
+
 Your vServer is now configured with SSH, an Nginx web server, and GitHub integration.
