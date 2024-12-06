@@ -128,7 +128,7 @@ Login with key & passphrase
 
 ```
 ssh serverAlias
-Enter passphrase for key 'C:\Users\user/.ssh/subfolder/filename':
+Enter passphrase for key 'C:\Users\user\.ssh\subfolder\filename':
 ```
 
 Open the SSH configuration file with the text editor nano. You can only change the file if you have root rights.
@@ -179,7 +179,7 @@ Install nginx
 
 Open your browser an navigate to "http://server_ipv4", you can see the nginx.defautl webpage.
 
-![my_page](./img/my_page.png)
+![nginx_page](./img/nginx_page.png)
 
 Delete the folder html with nginx.defautl.html
 
