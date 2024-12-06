@@ -293,7 +293,7 @@ Restart Nginx service to apply the settings
   sudo systemctl restart nginx
 ```
 
-Open your browser an navigate to "http://server\*ipv4:8010", now you can see your webpage.
+Open your browser an navigate to "http://server_ipv4:8010", now you can see your webpage.
 
 ![my_page](./my_page.png)
 
@@ -304,9 +304,34 @@ Open your browser an navigate to "http://server\*ipv4:8010", now you can see you
 Install Git on your server
 
 ```bash
-  sudo apt-get install git
+  sudo apt-get install git -y
 ```
 
-```bash
+Create a new key for your server
 
+```bash
+  ssh-keygen -t ed25519 -C "hostname"
+```
+
+Show new public key
+
+```bash
+cat ~/.ssh/id_ed25519.pub
+```
+
+Add the public key to your GitHub Account
+
+- GitHub > Settings > SSH and GPG keys > New SSH Key
+
+Connect Git to Github with the config settings.
+
+```bash
+git config --global user.name "Your Name"
+git config --global user.email "your_email@example.com"
+```
+
+Now you have full access to your GitHub account and can clone repositories, work on them and upload them again.
+
+```bash
+  git clone git@github.com:YourName/vServer_setup.git
 ```
