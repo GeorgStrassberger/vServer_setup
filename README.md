@@ -179,6 +179,8 @@ Install nginx
 
 Open your browser an navigate to "http://server_ipv4", you can see the nginx.defautl webpage.
 
+![my_page](./img/my_page.png)
+
 Delete the folder html with nginx.defautl.html
 
 ```bash
@@ -198,8 +200,11 @@ sudo nano /var/www/my_page/index.html
 ```
 
 ```html
-<html>
+<!DOCTYPE html>
+<html lang="de">
   <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MY_PAGE</title>
     <style>
       body {
@@ -210,9 +215,8 @@ sudo nano /var/www/my_page/index.html
       }
     </style>
   </head>
-
   <body>
-    <h1 style="text-align=center;">Welcome to my-page</h1>
+    <h1>Welcome to my-page</h1>
   </body>
 </html>
 ```
@@ -295,7 +299,7 @@ Restart Nginx service to apply the settings
 
 Open your browser an navigate to "http://server_ipv4:8010", now you can see your webpage.
 
-![my_page](./my_page.png)
+![my_page](./img/my_page.png)
 
 ---
 
