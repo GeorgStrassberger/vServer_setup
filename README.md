@@ -1,27 +1,34 @@
-# vServer Setup
+# 🌐 vServer Setup Guide
 
-- Connection to your system with sshkey
-- Install & setug nginx webserver
-- Connect your system to GitHub
+Welcome to the vServer setup guide! 🚀  
+This document will guide you through setting up SSH keys, configuring an Nginx web server, and connecting your server to GitHub.
 
 ---
 
-### 1. Connection to your system with sshkey
+## 📋 Table of Contents
 
-To use different keys on multiple systems, you can create a separate _subfolder_ for each _project_ to keep a better overview.
+1. [Setup SSH Key Connection](#-1-setup-ssh-key-connection)
+2. [Configure Nginx Web Server](#-2-configure-nginx-web-server)
+3. [Connect to GitHub](#-3-connect-to-github)
+
+---
+
+## 🔑 1. Setup SSH Key Connection
+### Generate an SSH Key
+To organize your SSH keys, create a separate folder for each project:
 
 ```bash
-  mkdir ~/.ssh/subfolder
+  mkdir ~/.ssh/project_folder
 ```
 
 ```powershell
   mkdir C:\Users\user\.ssh\subfolder
 ```
 
-Create a new ssh-Key for remote connection to the server in a subfolder project/Specific
+Generate a new SSH key:
 
 ```bash
-  ssh-keygen -t ed25519 -C "user@mail.com" -f ~/.ssh/subfolder/filename
+  ssh-keygen -t ed25519 -C "user@mail.com" -f ~/.ssh/project_folder/filename
 ```
 
 ```powershell
@@ -162,18 +169,13 @@ sudo systemctl restart sshd
 ```
 
 ---
+## 2. 🌐 Configure Nginx Web Server
+### Install Nginx
 
-# Nginx Webserver
-
-Update your system
+Update your system and install Nginx:
 
 ```bash
   sudo apt-get Update && sudo apt-get upgrade -y
-```
-
-Install nginx
-
-```bash
   sudo apt-get install nginx -y
 ```
 
@@ -181,23 +183,29 @@ Open your browser an navigate to "http://server_ipv4", you can see the nginx.def
 
 ![nginx_page](./img/nginx_page.png)
 
-Delete the folder html with nginx.defautl.html
+---
+### Configure Nginx
+
+
+Remove the default folder & file: 
 
 ```bash
   sudo rm -r /var/www/html/
 ```
 
-Create a new project folder
+Create a new project directory:
 
 ```bash
 sudo mkdir /var/www/my_page
 ```
 
-Create a index.html file in your project folder
+Add an index.html file:
 
 ```bash
 sudo nano /var/www/my_page/index.html
 ```
+
+Example content:
 
 ```html
 <!DOCTYPE html>
@@ -227,13 +235,13 @@ Copy the default file to save the settings
   sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default_copy
 ```
 
-remove file link
+Remove file link
 
 ```bash
   sudo rm /etc/nginx/sites-enabled/default
 ```
 
-rename the default file to my_page
+Rename the default file to my_page
 
 ```bash
   sudo mv /etc/nginx/sites-available/default /etc/nginx/sites-available/my_page
@@ -245,7 +253,7 @@ Open the my_page file with nano
   sudo nano /etc/nginx/sites-available/my_page
 ```
 
-add your nginx webserver configuration
+Add your nginx webserver configuration
 
 ```javascript
 server {
@@ -255,7 +263,7 @@ server {
 
         index index.html;
 
-        server_name 192.168.178.48;
+        server_name server_ipv4 hostname;
 
         location / {
                 # First attempt to serve request as file, then
@@ -302,8 +310,8 @@ Open your browser an navigate to "http://server_ipv4:8010", now you can see your
 ![my_page](./img/my_page.png)
 
 ---
-
-### Connect your system to GitHub
+## 🖇️ 3. Connect to GitHub
+### Install Git
 
 Install Git on your server
 
@@ -311,23 +319,27 @@ Install Git on your server
   sudo apt-get install git -y
 ```
 
-Create a new key for your server
+### Set Up GitHub SSH Key
+
+Generate a new SSH key for the server:
 
 ```bash
   ssh-keygen -t ed25519 -C "hostname"
 ```
 
-Show new public key
+Display the public key:
 
 ```bash
 cat ~/.ssh/id_ed25519.pub
 ```
 
-Add the public key to your GitHub Account
+Add the key to your GitHub account:
 
-- GitHub > Settings > SSH and GPG keys > New SSH Key
+**GitHub > Settings > SSH and GPG keys > New SSH Key**
 
-Connect Git to Github with the config settings.
+### Configure Git
+
+Set up your Git username and email:
 
 ```bash
 git config --global user.name "Your Name"
@@ -339,3 +351,6 @@ Now you have full access to your GitHub account and can clone repositories, work
 ```bash
   git clone git@github.com:YourName/vServer_setup.git
 ```
+---
+### 🎉 Done!
+Your vServer is now configured with SSH, an Nginx web server, and GitHub integration.
