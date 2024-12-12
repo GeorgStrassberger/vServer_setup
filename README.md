@@ -1,4 +1,4 @@
-# 🌐 vServer Setup Guide
+# 🛠️ vServer Setup Guide
 
 Welcome to the vServer setup guide! 🚀  
 This document will guide you through setting up SSH keys, configuring an Nginx web server, and connecting your server to GitHub.
@@ -15,23 +15,31 @@ This document will guide you through setting up SSH keys, configuring an Nginx w
 
 ## 🔑 1. Setup SSH Key Connection
 
-### Generate an SSH Key
+### 1.1 Generate an SSH Key
 
 To organize your SSH keys, create a separate folder for each project:
+
+Bash
 
 ```bash
   mkdir ~/.ssh/project_folder
 ```
 
+Powershell
+
 ```powershell
   mkdir C:\Users\user\.ssh\subfolder
 ```
 
-Generate a new SSH key:
+### 1.2 Generate a new SSH key:
+
+Bash
 
 ```bash
   ssh-keygen -t ed25519 -C "user@mail.com" -f ~/.ssh/project_folder/filename
 ```
+
+Powershell
 
 ```powershell
   ssh-keygen -t ed25519 -C "user@mail.com" -f C:\Users\user\.ssh\subfolder\filename
@@ -43,7 +51,7 @@ Generate a new SSH key:
 
 You do not need to enter a passphrase and can skip entering it by pressing Enter. It is recommended to increase security.
 
-```
+```bash
   Enter passphrase:
 ```
 
@@ -52,17 +60,17 @@ You do not need to enter a passphrase and can skip entering it by pressing Enter
 > - Private Key "filename" | **ONLY** for **YOU**
 > - Public Key "filename.pub" | to share
 
----
-
-#### Save the created key on the server
+### 1.3 Save the created key on the server
 
 To do this, we copy the desired key to the server.
+
+Bash
 
 ```bash
   ssh-copy-id vserver-user@vserver_ipv4
 ```
 
-or
+Powershell
 
 1. Copy the key to your server in the home directory of the server user
 
@@ -78,27 +86,24 @@ or
 
 3. Write your public-key in _authorized_keys_ flie
 
-```powershell
+```bash
   cat <filename.pub> >> .ssh/authorized_keys
 ```
 
 4. Delete with remove your public-key file
 
-```powershell
+```bash
   rm ~/<filename.pub>
 ```
 
-Print the contents of the file to check if everything worked.
+5. Print the contents of the file to check if everything worked.
 
-```
+```bash
   cat ~/ssh/authorized_keys
   ssh-ed25519 AAAAC3NzaC1lZFFAA13645B23AAAAIFE7TXS31fHp+/MbA4YlX4cG2OTQStMtX3R6+TDssBk0 user@mail.com
-
 ```
 
----
-
-#### Check Connection
+### 1.4 Check Connection
 
 To test the login with the public key we connect to the server via sshkey.
 
@@ -112,9 +117,7 @@ To test the login with the public key we connect to the server via sshkey.
 
 - `-i` **i**dentity file by the path to your private key
 
-or
-
-#### Setup a short alias for connection
+### 1.5 Setup a short alias for connection
 
 add to your local machine `./ssh/config` file
 
@@ -126,37 +129,35 @@ add to your local machine `./ssh/config` file
 > ```
 
 ```powershell
-ssh serverAlias
+  ssh serverAlias
 ```
 
----
-
-#### Update vServer connection rules
+### 1.6 Update vServer connection rules
 
 Login with key & passphrase
 
-```
-ssh serverAlias
-Enter passphrase for key 'C:\Users\user\.ssh\subfolder\filename':
+```bash
+  ssh serverAlias
+  Enter passphrase for key 'C:\Users\user\.ssh\subfolder\filename':
 ```
 
 Open the SSH configuration file with the text editor nano. You can only change the file if you have root rights.
 To confirm root rights, enter the user password.
 
-```
+```bash
   sudo nano /etc/ssh/sshd_config
 ```
 
 find PasswordAuthentication
 
-```
-#PasswordAuthentication yes
+```bash
+  #PasswordAuthentication yes
 ```
 
 and change it to
 
-```
-PasswordAuthentication no
+```bash
+  PasswordAuthentication no
 ```
 
 Save file & Exit nano
@@ -172,9 +173,9 @@ sudo systemctl restart sshd
 
 ---
 
-## 🌐 2. Configure Nginx Web Server
+## 🖥️ 2. Configure Nginx Web Server
 
-### Install Nginx
+### 2.1 Install Nginx
 
 Update your system and install Nginx:
 
@@ -187,9 +188,7 @@ Open your browser an navigate to "http://server_ipv4", you can see the nginx.def
 
 ![nginx_page](./img/nginx_page.png)
 
----
-
-### Configure Nginx
+### 2.2 Configure Nginx
 
 Remove the default folder & file:
 
@@ -200,13 +199,13 @@ Remove the default folder & file:
 Create a new project directory:
 
 ```bash
-sudo mkdir /var/www/my_page
+  sudo mkdir /var/www/my_page
 ```
 
 Add an index.html file:
 
 ```bash
-sudo nano /var/www/my_page/index.html
+  sudo nano /var/www/my_page/index.html
 ```
 
 Example content:
@@ -259,7 +258,7 @@ Open the my_page file with nano
 
 Add your nginx webserver configuration
 
-```javascript
+```
 server {
         listen 8081;
 
@@ -290,9 +289,6 @@ Test your nginx settings
 
 ```bash
   sudo nginx -t
-```
-
-```bash
   nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
   nginx: configuration file /etc/nginx/nginx.conf test is successful
 ```
@@ -315,9 +311,9 @@ Open your browser an navigate to "http://server_ipv4:8010", now you can see your
 
 ---
 
-## 🖇️ 3. Connect to GitHub
+## 🌐 3. Connect to GitHub
 
-### Install Git
+### 3.1 Install Git
 
 Install Git on your server
 
@@ -325,7 +321,7 @@ Install Git on your server
   sudo apt-get install git -y
 ```
 
-### Set Up GitHub SSH Key
+### 3.2 Set Up GitHub SSH Key
 
 Generate a new SSH key for the server:
 
@@ -336,20 +332,20 @@ Generate a new SSH key for the server:
 Display the public key:
 
 ```bash
-cat ~/.ssh/id_ed25519.pub
+  cat ~/.ssh/id_ed25519.pub
 ```
 
 Add the key to your GitHub account:
 
 **GitHub > Settings > SSH and GPG keys > New SSH Key**
 
-### Configure Git
+### 3.3 Configure Git
 
 Set up your Git username and email:
 
 ```bash
-git config --global user.name "Your Name"
-git config --global user.email "your_email@example.com"
+  git config --global user.name "Your Name"
+  git config --global user.email "your_email@example.com"
 ```
 
 Now you have full access to your GitHub account and can clone repositories, work on them and upload them again.
