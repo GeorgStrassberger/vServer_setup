@@ -7,17 +7,17 @@ This document will guide you through setting up SSH keys, configuring an Nginx w
 
 ## 📋 Table of Contents
 
-1. [Setup SSH Key Connection](#-1-setup-ssh-key-connection)
-2. [Configure Nginx Web Server](#-2-configure-nginx-web-server)
-3. [Connect to GitHub](#-3-connect-to-github)
+1. [Setup SSH Key Connection](#1-setup-ssh-key-connection)
+2. [Configure Nginx Web Server](#2-configure-nginx-web-server)
+3. [Connect to GitHub](#3-connect-to-github)
 
 ---
 
-## 🔑 1. Setup SSH Key Connection
+## 1. Setup SSH Key Connection
 
-### 1.1 Generate an SSH Key
+### 1.1 Create Project
 
-To organize your SSH keys, create a separate folder for each project:
+Create a separate folder for each project:
 
 Bash
 
@@ -62,7 +62,7 @@ You do not need to enter a passphrase and can skip entering it by pressing Enter
 
 ### 1.3 Save the created key on the server
 
-To do this, we copy the desired key to the server.
+Copy the desired key to the server.
 
 Bash
 
@@ -87,13 +87,13 @@ Powershell
 3. Write your public-key in _authorized_keys_ flie
 
 ```bash
-  cat <filename.pub> >> .ssh/authorized_keys
+  cat filename.pub >> .ssh/authorized_keys
 ```
 
 4. Delete with remove your public-key file
 
 ```bash
-  rm ~/<filename.pub>
+  rm ~/filename.pub
 ```
 
 5. Print the contents of the file to check if everything worked.
@@ -105,11 +105,15 @@ Powershell
 
 ### 1.4 Check Connection
 
-To test the login with the public key we connect to the server via sshkey.
+Test the login with the public keyn to connect on the server via sshkey.
+
+Bash
 
 ```bash
   ssh -i ~/.ssh/subfolder/filename vserver-user@vserver_ipv4
 ```
+
+Powershell
 
 ```powershell
   ssh -i C:\Users\user\.ssh\subfolder\filename user@server_ipv4
@@ -119,7 +123,7 @@ To test the login with the public key we connect to the server via sshkey.
 
 ### 1.5 Setup a short alias for connection
 
-add to your local machine `./ssh/config` file
+Create on your local machine a `./ssh/config` file
 
 > ```
 >  Host serverAlias
@@ -128,7 +132,9 @@ add to your local machine `./ssh/config` file
 >    IdentityFile ~/.ssh/subfolder/filename
 > ```
 
-```powershell
+Now you can use Bash or Powershell to connect via alias
+
+```bash
   ssh serverAlias
 ```
 
@@ -142,38 +148,38 @@ Login with key & passphrase
 ```
 
 Open the SSH configuration file with the text editor nano. You can only change the file if you have root rights.
-To confirm root rights, enter the user password.
+Confirm root rights, enter the user password.
 
 ```bash
   sudo nano /etc/ssh/sshd_config
 ```
 
-find PasswordAuthentication
+Find PasswordAuthentication
 
 ```bash
   #PasswordAuthentication yes
 ```
 
-and change it to
+Change it to
 
 ```bash
   PasswordAuthentication no
 ```
 
-Save file & Exit nano
+Save file & Exit file in nano
 
-> save file STRG + O
-> quit file STRG + X
+- Save file `STRG + O`
+- Exit file `STRG + X`
 
-To make the changes effective, the service must be restarted.
+Make the changes effective, the service must be restarted.
 
-```
+```bash
 sudo systemctl restart sshd
 ```
 
 ---
 
-## 🖥️ 2. Configure Nginx Web Server
+## 2. Configure Nginx Web Server
 
 ### 2.1 Install Nginx
 
@@ -258,7 +264,7 @@ Open the my_page file with nano
 
 Add your nginx webserver configuration
 
-```
+```bash
 server {
         listen 8081;
 
@@ -276,10 +282,12 @@ server {
 }
 ```
 
-Save file & Exit nano
+Save file & Exit file in nano
 
-> save file STRG + O
-> quit file STRG + X
+- Save file `STRG + O`
+- Exit file `STRG + X`
+
+Create a symlink to enable your configuration
 
 ```bash
   sudo ln -s /etc/nginx/sites-available/my_page /etc/nginx/sites-enabled/
@@ -311,7 +319,7 @@ Open your browser an navigate to "http://server_ipv4:8010", now you can see your
 
 ---
 
-## 🌐 3. Connect to GitHub
+## 3. Connect to GitHub
 
 ### 3.1 Install Git
 
